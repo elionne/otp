@@ -13,7 +13,7 @@ class Otp
     end
 
     def totp(key, time = Time.now.utc, window = 30,  digits = 6, digester = 'sha1')
-      hotp(key, time.to_i.fdiv(window).truncate, digits, digester)
+      hotp(key, time.to_i.fdiv(window).floor, digits, digester)
     end
 
   private
