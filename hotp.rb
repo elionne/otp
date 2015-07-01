@@ -24,15 +24,3 @@ class Otp
 
   end
 end
-# 
-# srand 120002765818364931371353969670647940910
-# 
-# key = rand 2**80
-# counter = rand 2**64
-# 
-# p key.to_s(16)
-# a = Base32.encode key
-# p a
-# p Base32.decode(a).to_s 16
-# 
-# puts Otp.totp(key)
