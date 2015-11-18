@@ -26,11 +26,11 @@ class Base32
       block = to_number(block).to_s(2).rjust(bits_size, "0")
 
       # Group bits by 5...
-      b32_block = 0.step(bits_size-1, 5).map do |b|
+      b32_block = block.chars.each_slice(5).map do |b|
         BASE32_ALPHABET[
           # ...and select corresponding letter. Adjust if the final block is
           # less than 5 bits.
-          block[b, 5].ljust(5, "0").to_i(2)
+          b.join.ljust(5, "0").to_i(2)
         ]
       end
 
@@ -40,11 +40,11 @@ class Base32
 
     def encode(bin)
       bin = to_binary(bin) if bin.kind_of? Integer
-      0.step(bin.length-1, 5).map do |b|
+      bin.chars.each_slice(5).map do |b|
 
         # Try to transform an 5 bytes to 8 block of 5 bits. One block of 5 bits
         # is a letter from BASE32_ALPHABET.
-        encode_block(bin[b, 5])
+        encode_block(b.join)
       end.join
     end
 
