@@ -26,16 +26,7 @@ describe Otp do
   key_sha256 = 0x3132333435363738393031323334353637383930313233343536373839303132
   key_sha512 = 0x31323334353637383930313233343536373839303132333435363738393031323334353637383930313233343536373839303132333435363738393031323334
 
-  totp_times = [59, 1111111109, 1111111111, 1234567890, 2000000000, 20000000000]
-
   hotp_inputs = %w(84755224 94287082 37359152 26969429 40338314 68254676 18287922 82162583 73399871 45520489 72403154)
-  totp_digits_sha1 = %w(94287082 07081804 14050471 89005924 69279037 65353130)
-  totp_digits_sha256 = %w(46119246 68084774 67062674 91819424 90698825 77737706)
-  totp_digits_sha512 = %w(90693936 25091201 99943326 93441116 38618901 47863826)
-
-  totp_sha1 = { :key => key_sha1, :times => totp_times, :digits => totp_digits_sha1, :digester => "sha1"}
-  totp_sha256 = { :key => key_sha256, :times => totp_times, :digits => totp_digits_sha256, :digester => "sha256"}
-  totp_sha512 = { :key => key_sha512, :times => totp_times, :digits => totp_digits_sha512, :digester => "sha512"}
 
   shared_examples ".hotp" do |size, digits|
     it do
@@ -57,6 +48,14 @@ describe Otp do
     it_behaves_like ".hotp", 8, hotp_inputs
   end
 
+  totp_times = [59, 1111111109, 1111111111, 1234567890, 2000000000, 20000000000]
+  totp_digits_sha1   = %w(94287082 07081804 14050471 89005924 69279037 65353130)
+  totp_digits_sha256 = %w(46119246 68084774 67062674 91819424 90698825 77737706)
+  totp_digits_sha512 = %w(90693936 25091201 99943326 93441116 38618901 47863826)
+
+  totp_sha1   = { :key => key_sha1,   :times => totp_times, :digits => totp_digits_sha1,   :digester => "sha1"}
+  totp_sha256 = { :key => key_sha256, :times => totp_times, :digits => totp_digits_sha256, :digester => "sha256"}
+  totp_sha512 = { :key => key_sha512, :times => totp_times, :digits => totp_digits_sha512, :digester => "sha512"}
 
   shared_examples ".totp" do |data|
     it do
